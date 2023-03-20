@@ -1,13 +1,19 @@
 version: 0.2
 
+eb_codebuild_settings:
+  CodeBuildServiceRole: arn:aws:iam::001565281851:role/service-role/codebuild-Flask-EB-CD-service-role
+  ComputeType: BUILD_GENERAL1_SMALL
+  Image: aws/codebuild/standard:6.0
+  Timeout: 10
+
 phases:
   install:
     runtime-versions:
       python: 3.7
   pre_build:
     commands:
-      - python3.7 -m venv ~/.venv
-      - source ~/.venv/bin/activate
+      - python3.7 -m venv ~/.eb
+      - source ~/.eb/bin/activate
       - make install
       - make lint
 
